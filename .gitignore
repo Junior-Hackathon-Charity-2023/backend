@@ -32,4 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 /keys/
-/src/main/resources/images/
+/images/
+

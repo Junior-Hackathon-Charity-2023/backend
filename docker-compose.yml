@@ -15,6 +15,7 @@ services:
 
     volumes:
       - ./keys:/app/keys
+      - ./images:/app/images
 
   database:
     image: postgres:16
