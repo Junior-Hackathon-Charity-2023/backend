@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/api/default/gallery")
 public class DefaultGalleryController {
     @GetMapping("/image")
-    public ResponseEntity<byte[]> getImage(@RequestParam("imageid") String imageId) throws IOException {
+    public ResponseEntity<?> getImage(@RequestParam("imageid") String imageId) throws IOException {
         String path = "images/" + imageId + ".png";
         byte[] imageData = Files.readAllBytes(Paths.get(path));
         return ResponseEntity.ok()
@@ -31,7 +31,7 @@ public class DefaultGalleryController {
     }
 
     @GetMapping
-    public List<byte[]> getAllImages() throws IOException {
+    public List<?> getAllImages() throws IOException {
         List<byte[]> list = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             String path = "images/" + i + ".png";
