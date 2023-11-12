@@ -52,7 +52,7 @@ public class GalleryService {
         return imageId;
     }
 
-    public ResponseEntity<byte[]> getImage(String imageId) throws Exception {
+    public ResponseEntity<Byte[]> getImage(String imageId) throws Exception {
         Image imageEntity = imageRepository.findByImageId(imageId)
                 .orElseThrow(() -> new ImageNotFoundException("Image with ID " + imageId + " not found."));
 
@@ -60,7 +60,7 @@ public class GalleryService {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(image, imageEntity.getImageFormat(), baos);
-        byte[] imageBytes = baos.toByteArray();
+        Byte[] imageBytes = ArrayUtils.toObject(baos.toByteArray());
 
         String mimeType = "image/" + imageEntity.getImageFormat();
         return ResponseEntity.ok()
