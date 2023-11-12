@@ -46,9 +46,16 @@ public class GalleryController {
     @GetMapping(name = "/image")
     public ResponseEntity<?> getImage(@RequestParam("imageid") String imageId) {
         try {
-            return galleryService.getImage(imageId);
+            return ResponseEntity.ok(galleryService.getImage(imageId));
+        } catch (ImageNotFoundException e) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("reason", e.getMessage());
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            Map<String, Object> map = new HashMap<>();
+            map.put("reason", e.getMessage());
+            map.put("stack", e.getStackTrace());
+            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
     }
 
