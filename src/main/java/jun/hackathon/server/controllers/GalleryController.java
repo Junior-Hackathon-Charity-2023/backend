@@ -59,7 +59,7 @@ public class GalleryController {
     }
 
     @GetMapping()
-    public List<Byte[]> getAllImages() throws Exception {
+    public List<byte[]> getAllImages() throws Exception {
         return galleryService.getAllImages();
     }
 }
