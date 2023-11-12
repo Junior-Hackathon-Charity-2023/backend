@@ -22,21 +22,21 @@ import java.util.List;
 @RequestMapping("/api/default/gallery")
 public class DefaultGalleryController {
     @GetMapping("/image")
-    public ResponseEntity<Byte[]> getImage(@RequestParam("imageid") String imageId) throws IOException {
+    public ResponseEntity<byte[]> getImage(@RequestParam("imageid") String imageId) throws IOException {
         String path = "images/" + imageId + ".png";
         byte[] imageData = Files.readAllBytes(Paths.get(path));
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
-                .body(ArrayUtils.toObject(imageData));
+                .body(imageData);
     }
 
     @GetMapping
-    public List<Byte[]> getAllImages() throws IOException {
-        List<Byte[]> list = new ArrayList<>();
+    public List<byte[]> getAllImages() throws IOException {
+        List<byte[]> list = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             String path = "images/" + i + ".png";
             byte[] imageData = Files.readAllBytes(Paths.get(path));
-            list.add(ArrayUtils.toObject(imageData));
+            list.add(imageData);
         }
         return list;
     }
