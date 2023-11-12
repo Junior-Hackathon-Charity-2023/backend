@@ -4,6 +4,7 @@ import jun.hackathon.server.services.GalleryService;
 import jun.hackathon.server.util.exceptions.ImageNotFoundException;
 import jun.hackathon.server.util.exceptions.UnsupportedFileTypeException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,7 +43,7 @@ public class GalleryController {
         }
     }
 
-    @GetMapping("/image")
+@GetMapping("/image")
     public ResponseEntity<byte[]> getImage(@RequestParam("imageid") String imageId) throws Exception {
             return galleryService.getImage(imageId);
     }
