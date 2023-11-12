@@ -51,7 +51,7 @@ public class GalleryService {
 
         return imageId;
     }
-    public ResponseEntity<?> getImage(String imageId) throws Exception {
+    public ResponseEntity<byte[]> getImage(String imageId) throws Exception {
         Image imageEntity = imageRepository.findByImageId(imageId)
                 .orElseThrow(() -> new ImageNotFoundException("Image with ID " + imageId + " not found."));
 
@@ -67,9 +67,9 @@ public class GalleryService {
                 .body(imageBytes);
     }
 
-    public List<?> getAllImages() throws Exception {
+    public List<String> getAllImages() throws Exception {
         List<Image> images = imageRepository.findAll();
-        List<byte[]> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
 
         for (Image imageEntity : images) {
             BufferedImage img = imageStorage.getImage(imageEntity.getPath());
@@ -77,7 +77,7 @@ public class GalleryService {
             ImageIO.write(img, imageEntity.getImageFormat(), baos);
             byte[] imageBytes = baos.toByteArray();
 
-            list.add(imageBytes);
+            list.add(Arrays.toString(imageBytes));
         }
         return list;
     }
