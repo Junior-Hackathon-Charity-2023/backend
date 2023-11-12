@@ -43,22 +43,13 @@ public class GalleryController {
         }
     }
 
-    @GetMapping("/image")
-    @ResponseBody
-    public ResponseEntity<byte[]> getImage(@RequestParam("imageid") String imageId) {
-        try {
+@GetMapping("/image")
+    public ResponseEntity<byte[]> getImage(@RequestParam("imageid") String imageId) throws Exception {
             return galleryService.getImage(imageId);
-        } catch (ImageNotFoundException e) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("reason", e.getMessage());
-            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @GetMapping()
-    public List<?> getAllImages() throws Exception {
+    public List<String> getAllImages() throws Exception {
         return galleryService.getAllImages();
     }
 }
