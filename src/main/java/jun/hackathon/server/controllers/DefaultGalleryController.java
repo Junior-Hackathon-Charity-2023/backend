@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/default/gallery")
@@ -25,5 +27,16 @@ public class DefaultGalleryController {
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(imageData);
+    }
+
+    @GetMapping
+    public List<?> getAllImages() throws IOException {
+        List<byte[]> list = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            String path = "images/" + i + ".png";
+            byte[] imageData = Files.readAllBytes(Paths.get(path));
+            list.add(imageData);
+        }
+        return list;
     }
 }
