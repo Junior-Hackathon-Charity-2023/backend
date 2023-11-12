@@ -1,5 +1,6 @@
 package jun.hackathon.server.controllers;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +31,12 @@ public class DefaultGalleryController {
     }
 
     @GetMapping
-    public List<?> getAllImages() throws IOException {
-        List<byte[]> list = new ArrayList<>();
+    public List<Byte[]> getAllImages() throws IOException {
+        List<Byte[]> list = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             String path = "images/" + i + ".png";
             byte[] imageData = Files.readAllBytes(Paths.get(path));
-            list.add(imageData);
+            list.add(ArrayUtils.toObject(imageData));
         }
         return list;
     }

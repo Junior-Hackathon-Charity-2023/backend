@@ -5,6 +5,7 @@ import jun.hackathon.server.repositories.ImageRepository;
 import jun.hackathon.server.util.exceptions.ImageNotFoundException;
 import jun.hackathon.server.util.exceptions.UnsupportedFileTypeException;
 import jun.hackathon.server.util.storage.ImageStorage;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -68,9 +69,9 @@ public class GalleryService {
     }
 
 
-    public List<?> getAllImages() throws Exception {
+    public List<Byte[]> getAllImages() throws Exception {
         List<Image> images = imageRepository.findAll();
-        List<byte[]> list = new ArrayList<>();
+        List<Byte[]> list = new ArrayList<>();
 
         for (Image imageEntity : images) {
             BufferedImage img = imageStorage.getImage(imageEntity.getPath());
@@ -78,7 +79,7 @@ public class GalleryService {
             ImageIO.write(img, imageEntity.getImageFormat(), baos);
             byte[] imageBytes = baos.toByteArray();
 
-            list.add(imageBytes);
+            list.add(ArrayUtils.toObject(imageBytes));
         }
         return list;
     }
