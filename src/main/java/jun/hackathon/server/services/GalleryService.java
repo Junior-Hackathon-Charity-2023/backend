@@ -68,19 +68,18 @@ public class GalleryService {
     }
 
 
-    public List<String> getAllImages() throws Exception {
+    public List<?> getAllImages() throws Exception {
         List<Image> images = imageRepository.findAll();
-        List<String> imageBase64List = new ArrayList<>();
+        List<byte[]> list = new ArrayList<>();
 
         for (Image imageEntity : images) {
             BufferedImage img = imageStorage.getImage(imageEntity.getPath());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(img, imageEntity.getImageFormat(), baos);
             byte[] imageBytes = baos.toByteArray();
-            String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-            imageBase64List.add(base64Image);
-        }
 
-        return imageBase64List;
+            list.add(imageBytes);
+        }
+        return list;
     }
 }
