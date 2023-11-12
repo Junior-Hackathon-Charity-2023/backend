@@ -44,8 +44,7 @@ public class GalleryController {
     }
 
     @GetMapping(name = "/image")
-    @ResponseBody
-    public ResponseEntity<byte[]> getImage(@RequestParam("imageid") String imageId) {
+    public @ResponseBody ResponseEntity<byte[]> getImage(@RequestParam("imageid") String imageId) {
         try {
             return galleryService.getImage(imageId);
         } catch (Exception e) {
